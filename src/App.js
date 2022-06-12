@@ -32,11 +32,7 @@ class App extends Component {
     const previousPage = prevState.page;
     const currentPage = this.state.page;
 
-    if (currentQuery !== previousQuery) {
-      await this.getImages();
-      return;
-    }
-    if (currentPage !== previousPage) {
+    if (currentQuery !== previousQuery || currentPage !== previousPage) {
       await this.getImages();
     }
   }
@@ -70,7 +66,7 @@ class App extends Component {
         return;
       }
 
-      if (response.data.hits.length === 12) {
+      if (response.data.hits.length > 11) {
         this.setState(prevState => ({
           images: [...prevState.images, ...response.data.hits],
           status: RESOLVED,
